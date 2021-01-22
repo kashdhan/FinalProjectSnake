@@ -234,7 +234,7 @@ namespace FinalProjectSnake
             blueDimensionList.Add(18);
 
             //green obstacle
-            greenXList.Add(460));
+            greenXList.Add(460);
             greenYList.Add(100);
             greenDimensionList.Add(14);
         }
@@ -489,7 +489,7 @@ namespace FinalProjectSnake
 
                     while (locationOK == false)
                     {
-                        Rectangle tempRec = new Rectangle(X, Y, 14, 14)
+                        Rectangle tempRec = new Rectangle(X, Y, 14, 14);
                         //blue
                         for (int j = 0; j < blueXList.Count(); j++)
                         {
@@ -497,8 +497,8 @@ namespace FinalProjectSnake
 
                             if (tempRec.IntersectsWith(blueRec))
                             {
-                                X = randGen.Next(18, 520)
-                                Y = randGen.Next(55, 283)
+                                X = randGen.Next(18, 520);
+                                Y = randGen.Next(55, 283);
                                 locationOK = false;
                                 break;
                             }
@@ -513,8 +513,8 @@ namespace FinalProjectSnake
 
                             if (tempRec.IntersectsWith(goldRec))
                             {
-                                X = randGen.Next(18, 520)
-                                Y = randGen.Next(55, 283)
+                                X = randGen.Next(18, 520);
+                                Y = randGen.Next(55, 283);
                                 locationOK = false;
                                 break;
                             }
@@ -528,8 +528,8 @@ namespace FinalProjectSnake
 
                             if (tempRec.IntersectsWith(redRec))
                             {
-                                X = randGen.Next(18, 520)
-                                Y = randGen.Next(55, 283)
+                                X = randGen.Next(18, 520);
+                                Y = randGen.Next(55, 283);
                                 locationOK = false;
                                 break;
                             }
@@ -544,8 +544,8 @@ namespace FinalProjectSnake
 
                             if (tempRec.IntersectsWith(wallRec))
                             {
-                                X = randGen.Next(18, 520)
-                                Y = randGen.Next(55, 283)
+                                X = randGen.Next(18, 520);
+                                Y = randGen.Next(55, 283);
                                 locationOK = false;
                                 break;
                             }
@@ -608,5 +608,4 @@ namespace FinalProjectSnake
             }
         }
     }
-}
 }
