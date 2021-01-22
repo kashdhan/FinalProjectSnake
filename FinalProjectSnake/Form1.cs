@@ -52,8 +52,6 @@ namespace FinalProjectSnake
 
         // random generator for small green +1 point dots
         Random randGen = new Random();
-      //  int temp1;
-       // int temp2;
 
         //initial snake direction
         string direction = "right";
@@ -94,10 +92,6 @@ namespace FinalProjectSnake
             scoreLabel.Text = $"score: ";//show score in here 
             smallTitle.Text = "SNAKERUN";//title text
             gameTimer.Enabled = true;
-
-            //temp variables
-          //  temp1 = randGen.Next(18, 520);
-           // temp2 = randGen.Next(55, 283);
         }
         private void GameDifficulty()
         {
@@ -480,12 +474,22 @@ namespace FinalProjectSnake
                     player.Play();
                     score++;
                     scoreLabel.Text = $"score: {score}";
-                    //Rectangle tempRec = new Rectangle(temp1, temp2, greenDimensionList[i], greenDimensionList[i]);
                     //remove after collection
                     greenXList.RemoveAt(i);
                     greenYList.RemoveAt(i);
                     greenDimensionList.RemoveAt(i);
                     //respawn new
+                    int X = randGen.Next(18, 520);
+                    int Y = randGen.Next(55, 283);
+                    //create a boolean, locationOk = false;
+
+                    //create a rec at the x and y location with the sizes of a green dot
+                    //create a while loop that runs while locationOk == flase
+                        //create a for loop that will go through each wall
+                            // create a rectagle for the ball
+                            // check for collision with new points
+                              // if true: break; 
+
                     greenXList.Add(randGen.Next(18, 520));
                     greenYList.Add(randGen.Next(55, 283));
                     greenDimensionList.Add(14);
