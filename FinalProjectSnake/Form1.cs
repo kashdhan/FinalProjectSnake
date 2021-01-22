@@ -94,7 +94,6 @@ namespace FinalProjectSnake
         }
         private void GameDifficulty()
         {
-            player.Stop();
             gameState = "difficulty";
             titleLabel.Text = "SnakeRun";
             subtitleLabel.Text = "Difficulties:\nPress E Key for EASY\nPress N Key for NORMAL\nPress H Key for HARD";
@@ -242,6 +241,7 @@ namespace FinalProjectSnake
         private void GameLoser()
         {
             //fill in lose code
+            player.Stop();
             player = new SoundPlayer(Properties.Resources.you_lose);
             player.Play();
             gameTimer.Enabled = false;
@@ -256,6 +256,7 @@ namespace FinalProjectSnake
         private void GameWinner()
         {
             //fill in win code
+            player.Stop();
             player = new SoundPlayer(Properties.Resources.you_win);
             player.Play();
             gameTimer.Enabled = false;
