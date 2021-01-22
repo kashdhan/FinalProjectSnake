@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Diagnostics;
 using System.Media;
+using System.Windows.Forms;
 
 //January 22 2021
 //Created by: Kashish Dhanoa
 //A simple snake game. 
+
 namespace FinalProjectSnake
 {
     public partial class Form1 : Form
@@ -25,6 +21,7 @@ namespace FinalProjectSnake
         int snakeSpeed = 7;
 
         //wall obstacle lists
+
         List<int> wallXList = new List<int>();
         List<int> wallYList = new List<int>();
         List<int> wallHeightList = new List<int>();
@@ -71,7 +68,7 @@ namespace FinalProjectSnake
 
         //play sound effects
         SoundPlayer player;
-
+        
         //brushes and pens
         SolidBrush greenBrush = new SolidBrush(Color.LightGreen);
         SolidBrush redBrush = new SolidBrush(Color.OrangeRed);
@@ -83,6 +80,8 @@ namespace FinalProjectSnake
         public Form1()
         {
             InitializeComponent();
+            player = new SoundPlayer(Properties.Resources.lobby);
+            player.Play();
         }
 
         public void GameInitialize()
@@ -95,6 +94,7 @@ namespace FinalProjectSnake
         }
         private void GameDifficulty()
         {
+            player.Stop();
             gameState = "difficulty";
             titleLabel.Text = "SnakeRun";
             subtitleLabel.Text = "Difficulties:\nPress E Key for EASY\nPress N Key for NORMAL\nPress H Key for HARD";
@@ -136,12 +136,12 @@ namespace FinalProjectSnake
             goldDimensionList.Add(17);
 
             //green obstacle-- two at a time
-            greenXList.Add(randGen.Next(18, 520));
-            greenYList.Add(randGen.Next(55, 283));
+            greenXList.Add(480);
+            greenYList.Add(290);
             greenDimensionList.Add(14);
 
-            greenXList.Add(randGen.Next(18, 520));
-            greenYList.Add(randGen.Next(55, 283));
+            greenXList.Add(360);
+            greenYList.Add(175);
             greenDimensionList.Add(14);
         }
         private void GameNormal()
@@ -182,8 +182,8 @@ namespace FinalProjectSnake
             goldDimensionList.Add(17);
 
             //green obstacle spawn
-            greenXList.Add(randGen.Next(18, 520));
-            greenYList.Add(randGen.Next(55, 283));
+            greenXList.Add(45);
+            greenYList.Add(200);
             greenDimensionList.Add(14);
         }
 
@@ -234,8 +234,8 @@ namespace FinalProjectSnake
             blueDimensionList.Add(18);
 
             //green obstacle
-            greenXList.Add(randGen.Next(18, 520));
-            greenYList.Add(randGen.Next(55, 283));
+            greenXList.Add(460));
+            greenYList.Add(100);
             greenDimensionList.Add(14);
         }
 
@@ -562,51 +562,51 @@ namespace FinalProjectSnake
             Refresh();
         }
 
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            //when waiting show text screen
+            if (gameState == "waiting")
+            {
+                titleLabel.Text = "SNAKERUN";
+                subtitleLabel.Text = "Press SPACE to Begin.\nPress ESC to Exit.";
+            }
+
+            //snake chracter and border drawings in all states
+            if (gameState == "runningHard" || gameState == "runningNormal" || gameState == "runningEasy")
+            {
+                e.Graphics.FillRectangle(greenBrush, snakeX, snakeY, snakeWidth, snakeHeight);
+                e.Graphics.DrawRectangle(borderPen, 15, 50, 525, 270);
+
+                //paint walls
+                for (int i = 0; i < wallXList.Count(); i++)
+                {
+                    e.Graphics.FillRectangle(wallBrush, wallXList[i], wallYList[i], wallWidthList[i], wallHeightList[i]);
+                }
+                //paint red dots
+                for (int i = 0; i < redXList.Count(); i++)
+                {
+                    e.Graphics.FillEllipse(redBrush, redXList[i], redYList[i], redDimensionList[i], redDimensionList[i]);
+                }
+                //paint blue dots
+                for (int i = 0; i < blueXList.Count(); i++)
+                {
+                    e.Graphics.FillEllipse(blueBrush, blueXList[i], blueYList[i], blueDimensionList[i], blueDimensionList[i]);
+                }
+                //paint gold dots
+                for (int i = 0; i < goldXList.Count(); i++)
+                {
+                    e.Graphics.FillRectangle(goldBrush, goldXList[i], goldYList[i], goldDimensionList[i], goldDimensionList[i]);
+                }
+                //paint green dots
+                for (int i = 0; i < greenXList.Count(); i++)
+                {
+                    e.Graphics.FillRectangle(greenBrush, greenXList[i], greenYList[i], greenDimensionList[i], greenDimensionList[i]);
+                }
+            }
+        }
     }
 
-    private void Form1_Paint(object sender, PaintEventArgs e)
-    {
-        //when waiting show text screen
-        if (gameState == "waiting")
-        {
-            titleLabel.Text = "SNAKERUN";
-            subtitleLabel.Text = "Press SPACE to Begin.\nPress ESC to Exit.";
-        }
 
-        //snake chracter and border drawings in all states
-        if (gameState == "runningHard" || gameState == "runningNormal" || gameState == "runningEasy")
-        {
-            e.Graphics.FillRectangle(greenBrush, snakeX, snakeY, snakeWidth, snakeHeight);
-            e.Graphics.DrawRectangle(borderPen, 15, 50, 525, 270);
-
-            //paint walls
-            for (int i = 0; i < wallXList.Count(); i++)
-            {
-                e.Graphics.FillRectangle(wallBrush, wallXList[i], wallYList[i], wallWidthList[i], wallHeightList[i]);
-            }
-            //paint red dots
-            for (int i = 0; i < redXList.Count(); i++)
-            {
-                e.Graphics.FillEllipse(redBrush, redXList[i], redYList[i], redDimensionList[i], redDimensionList[i]);
-            }
-            //paint blue dots
-            for (int i = 0; i < blueXList.Count(); i++)
-            {
-                e.Graphics.FillEllipse(blueBrush, blueXList[i], blueYList[i], blueDimensionList[i], blueDimensionList[i]);
-            }
-            //paint gold dots
-            for (int i = 0; i < goldXList.Count(); i++)
-            {
-                e.Graphics.FillRectangle(goldBrush, goldXList[i], goldYList[i], goldDimensionList[i], goldDimensionList[i]);
-            }
-            //paint green dots
-            for (int i = 0; i < greenXList.Count(); i++)
-            {
-                e.Graphics.FillRectangle(greenBrush, greenXList[i], greenYList[i], greenDimensionList[i], greenDimensionList[i]);
-            }
-        }
-
-    }
 
 }
 }
