@@ -10,11 +10,11 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Media;
 
+//January 22 2021
+//Created by: Kashish Dhanoa
+//A simple snake game. 
 namespace FinalProjectSnake
-{//Kashish Dhanoa
-    //Mr.T
-    //January 22 2021
-    //
+{
     public partial class Form1 : Form
     {     //global variables
         //snake character 
@@ -50,6 +50,11 @@ namespace FinalProjectSnake
         List<int> greenYList = new List<int>();
         List<int> greenDimensionList = new List<int>();
 
+        // random generator for small green +1 point dots
+        Random randGen = new Random();
+      //  int temp1;
+       // int temp2;
+
         //initial snake direction
         string direction = "right";
 
@@ -68,9 +73,6 @@ namespace FinalProjectSnake
 
         //play sound effects
         SoundPlayer player;
-
-        // random generator for small green +1 point dots
-        Random randGen = new Random();
 
         //brushes and pens
         SolidBrush greenBrush = new SolidBrush(Color.LightGreen);
@@ -92,6 +94,10 @@ namespace FinalProjectSnake
             scoreLabel.Text = $"score: ";//show score in here 
             smallTitle.Text = "SNAKERUN";//title text
             gameTimer.Enabled = true;
+
+            //temp variables
+          //  temp1 = randGen.Next(18, 520);
+           // temp2 = randGen.Next(55, 283);
         }
         private void GameDifficulty()
         {
@@ -107,7 +113,7 @@ namespace FinalProjectSnake
             livesLabel.Text = $"lives: {lives}";
             gameState = "runningEasy";
             snakeSpeed = 6;
-           
+
             //red dot obstacle
             redXList.Add(420);
             redYList.Add(270);
@@ -135,19 +141,14 @@ namespace FinalProjectSnake
             goldYList.Add(260);
             goldDimensionList.Add(17);
 
-            //GREEN OBSTACLE HELP
-            /* else if (randValue < 11) //5% change of green ball, (get points)
-             {
-                 ballXList.Add(randGen.Next(10, this.Width - ballSize * 2));
-                 ballYList.Add(10);
-                 ballSpeedList.Add(randGen.Next(2, 10));
-                 ballColourList.Add("green");
-             }*/
+            //green obstacle-- two at a time
+            greenXList.Add(randGen.Next(18, 520));
+            greenYList.Add(randGen.Next(55, 283));
+            greenDimensionList.Add(14);
 
-            greenXList.Add(310);
-            greenYList.Add(210);
-            greenDimensionList.Add(17);
-
+            greenXList.Add(randGen.Next(18, 520));
+            greenYList.Add(randGen.Next(55, 283));
+            greenDimensionList.Add(14);
         }
         private void GameNormal()
         {
@@ -156,7 +157,7 @@ namespace FinalProjectSnake
             livesLabel.Text = $"lives: {lives}";
             gameState = "runningNormal";
 
-            //  wall obstacle
+            //wall obstacle
             wallXList.Add(300);
             wallYList.Add(168);
             wallHeightList.Add(150);
@@ -186,8 +187,10 @@ namespace FinalProjectSnake
             goldYList.Add(270);
             goldDimensionList.Add(17);
 
-            //GREEN OBSTACLE HELP
-           
+            //green obstacle spawn
+            greenXList.Add(randGen.Next(18, 520));
+            greenYList.Add(randGen.Next(55, 283));
+            greenDimensionList.Add(14);
         }
 
         private void GameHard()
@@ -197,7 +200,7 @@ namespace FinalProjectSnake
             livesLabel.Text = $"lives: {lives}";
             gameState = "runningHard";
             snakeSpeed = 9;
-          
+
             //3 walls 
             wallXList.Add(170);
             wallYList.Add(168);
@@ -232,12 +235,14 @@ namespace FinalProjectSnake
             blueYList.Add(75);
             blueDimensionList.Add(17);
 
-
             blueXList.Add(350);
             blueYList.Add(270);
             blueDimensionList.Add(18);
-            //GREENOBSTACLE HELP
 
+            //green obstacle
+            greenXList.Add(randGen.Next(18, 520));
+            greenYList.Add(randGen.Next(55, 283));
+            greenDimensionList.Add(14);
         }
 
         private void GameLoser()
@@ -405,7 +410,7 @@ namespace FinalProjectSnake
             for (int i = 0; i < wallXList.Count(); i++)
             {
                 Rectangle wallRec = new Rectangle(wallXList[i], wallYList[i], wallWidthList[i], wallHeightList[i]);
-               
+
                 if (snakeRec.IntersectsWith(wallRec))
                 {
                     player = new SoundPlayer(Properties.Resources.collision);
@@ -441,7 +446,7 @@ namespace FinalProjectSnake
                 Rectangle blueRec = new Rectangle(blueXList[i], blueYList[i], blueDimensionList[i], blueDimensionList[i]);
                 if (snakeRec.IntersectsWith(blueRec))
                 {
-                    player = new SoundPlayer(Properties.Resources.collision); 
+                    player = new SoundPlayer(Properties.Resources.collision);
                     player.Play();
                     score = score - 4;
                     scoreLabel.Text = $"score: {score}";
@@ -461,9 +466,6 @@ namespace FinalProjectSnake
                     player.Play();
                     score = score + 4;
                     scoreLabel.Text = $"score: {score}";
-                    snakeX = 100;
-                    snakeY = 100;
-                    direction = "right";
                     goldXList.RemoveAt(i);//remove after collection
                     goldYList.RemoveAt(i);
                     goldDimensionList.RemoveAt(i);
@@ -476,17 +478,20 @@ namespace FinalProjectSnake
                 {
                     player = new SoundPlayer(Properties.Resources.collect);
                     player.Play();
-                    score ++;
+                    score++;
                     scoreLabel.Text = $"score: {score}";
-                    snakeX = 100;
-                    snakeY = 100;
-                    direction = "right";
-                    greenXList.RemoveAt(i);//remove after collection
+                    //Rectangle tempRec = new Rectangle(temp1, temp2, greenDimensionList[i], greenDimensionList[i]);
+                    //remove after collection
+                    greenXList.RemoveAt(i);
                     greenYList.RemoveAt(i);
                     greenDimensionList.RemoveAt(i);
+                    //respawn new
+                    greenXList.Add(randGen.Next(18, 520));
+                    greenYList.Add(randGen.Next(55, 283));
+                    greenDimensionList.Add(14);
+
                 }
             }
-
 
             Refresh();
         }
@@ -532,7 +537,7 @@ namespace FinalProjectSnake
                     e.Graphics.FillRectangle(greenBrush, greenXList[i], greenYList[i], greenDimensionList[i], greenDimensionList[i]);
                 }
             }
-            
+
         }
 
     }

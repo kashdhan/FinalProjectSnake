@@ -92,5 +92,8 @@
   <ItemGroup>
     <None Include="Resources\you lose.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lobby.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
