@@ -468,16 +468,19 @@ namespace FinalProjectSnake
             for (int i = 0; i < greenXList.Count(); i++)
             {
                 Rectangle greenRec = new Rectangle(greenXList[i], greenYList[i], greenDimensionList[i], greenDimensionList[i]);
+
                 if (snakeRec.IntersectsWith(greenRec))
                 {
                     player = new SoundPlayer(Properties.Resources.collect);
                     player.Play();
                     score++;
                     scoreLabel.Text = $"score: {score}";
+                    
                     //remove after collection
                     greenXList.RemoveAt(i);
                     greenYList.RemoveAt(i);
                     greenDimensionList.RemoveAt(i);
+                    
                     //respawn new
                     int X = randGen.Next(18, 520);
                     int Y = randGen.Next(55, 283);
@@ -488,7 +491,7 @@ namespace FinalProjectSnake
                     {
                         Rectangle tempRec = new Rectangle(X, Y, 14, 14)
                         //blue
-                        for (int j = 0; j < blueXList.Count; j++)
+                        for (int j = 0; j < blueXList.Count(); j++)
                         {
                             Rectangle blueRec = new Rectangle(blueXList[j], blueYList[j], blueDimensionList[j], blueDimensionList[j]);
 
@@ -504,7 +507,7 @@ namespace FinalProjectSnake
                         }
 
                         //gold
-                        for (int j = 0; j < goldXList.Count; j++)
+                        for (int j = 0; j < goldXList.Count(); j++)
                         {
                             Rectangle goldRec = new Rectangle(goldXList[j], goldYList[j], goldDimensionList[j], goldDimensionList[j]);
 
@@ -519,7 +522,7 @@ namespace FinalProjectSnake
                             locationOK = true;
                         }
                         //red
-                        for (int j = 0; j < redXList.Count; j++)
+                        for (int j = 0; j < redXList.Count(); j++)
                         {
                             Rectangle redRec = new Rectangle(redXList[j], redYList[j], redDimensionList[j], redDimensionList[j]);
 
@@ -535,7 +538,7 @@ namespace FinalProjectSnake
                         }
 
                         //wall
-                        for (int j = 0; j < wallXList.Count; j++)
+                        for (int j = 0; j < wallXList.Count(); j++)
                         {
                             Rectangle wallRec = new Rectangle(wallXList[j], wallYList[j], wallWidthList[j], wallHeightList[j]);
 
@@ -605,8 +608,5 @@ namespace FinalProjectSnake
             }
         }
     }
-
-
-
 }
 }
