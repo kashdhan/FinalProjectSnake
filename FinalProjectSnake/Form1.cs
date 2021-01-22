@@ -101,6 +101,7 @@ namespace FinalProjectSnake
 
         private void GameEasy()
         {
+            player.Stop();
             GameInitialize();
             lives = 5;
             livesLabel.Text = $"lives: {lives}";
@@ -145,6 +146,7 @@ namespace FinalProjectSnake
         }
         private void GameNormal()
         {
+            player.Stop();
             GameInitialize();
             lives = 3;
             livesLabel.Text = $"lives: {lives}";
@@ -188,6 +190,7 @@ namespace FinalProjectSnake
 
         private void GameHard()
         {
+            player.Stop();
             GameInitialize();
             lives = 1;
             livesLabel.Text = $"lives: {lives}";
@@ -241,7 +244,6 @@ namespace FinalProjectSnake
         private void GameLoser()
         {
             //fill in lose code
-            player.Stop();
             player = new SoundPlayer(Properties.Resources.you_lose);
             player.Play();
             gameTimer.Enabled = false;
@@ -256,7 +258,6 @@ namespace FinalProjectSnake
         private void GameWinner()
         {
             //fill in win code
-            player.Stop();
             player = new SoundPlayer(Properties.Resources.you_win);
             player.Play();
             gameTimer.Enabled = false;
