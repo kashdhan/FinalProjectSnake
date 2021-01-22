@@ -481,17 +481,79 @@ namespace FinalProjectSnake
                     //respawn new
                     int X = randGen.Next(18, 520);
                     int Y = randGen.Next(55, 283);
-                    //create a boolean, locationOk = false;
 
-                    //create a rec at the x and y location with the sizes of a green dot
-                    //create a while loop that runs while locationOk == flase
-                        //create a for loop that will go through each wall
-                            // create a rectagle for the ball
-                            // check for collision with new points
-                              // if true: break; 
+                    bool locationOK = false;
 
-                    greenXList.Add(randGen.Next(18, 520));
-                    greenYList.Add(randGen.Next(55, 283));
+                    while (locationOK == false)
+                    {
+                        Rectangle tempRec = new Rectangle(X, Y, 14, 14)
+                        //blue
+                        for (int j = 0; j < blueXList.Count; j++)
+                        {
+                            Rectangle blueRec = new Rectangle(blueXList[j], blueYList[j], blueDimensionList[j], blueDimensionList[j]);
+
+                            if (tempRec.IntersectsWith(blueRec))
+                            {
+                                X = randGen.Next(18, 520)
+                                Y = randGen.Next(55, 283)
+                                locationOK = false;
+                                break;
+                            }
+
+                            locationOK = true;
+                        }
+
+                        //gold
+                        for (int j = 0; j < goldXList.Count; j++)
+                        {
+                            Rectangle goldRec = new Rectangle(goldXList[j], goldYList[j], goldDimensionList[j], goldDimensionList[j]);
+
+                            if (tempRec.IntersectsWith(goldRec))
+                            {
+                                X = randGen.Next(18, 520)
+                                Y = randGen.Next(55, 283)
+                                locationOK = false;
+                                break;
+                            }
+
+                            locationOK = true;
+                        }
+                        //red
+                        for (int j = 0; j < redXList.Count; j++)
+                        {
+                            Rectangle redRec = new Rectangle(redXList[j], redYList[j], redDimensionList[j], redDimensionList[j]);
+
+                            if (tempRec.IntersectsWith(redRec))
+                            {
+                                X = randGen.Next(18, 520)
+                                Y = randGen.Next(55, 283)
+                                locationOK = false;
+                                break;
+                            }
+
+                            locationOK = true;
+                        }
+
+                        //wall
+                        for (int j = 0; j < wallXList.Count; j++)
+                        {
+                            Rectangle wallRec = new Rectangle(wallXList[j], wallYList[j], wallWidthList[j], wallHeightList[j]);
+
+                            if (tempRec.IntersectsWith(wallRec))
+                            {
+                                X = randGen.Next(18, 520)
+                                Y = randGen.Next(55, 283)
+                                locationOK = false;
+                                break;
+                            }
+
+                            locationOK = true;
+                        }
+
+                    }
+
+                    greenXList.Add(X);
+                    greenYList.Add(Y);
                     greenDimensionList.Add(14);
 
                 }
@@ -500,49 +562,51 @@ namespace FinalProjectSnake
             Refresh();
         }
 
-        private void Form1_Paint(object sender, PaintEventArgs e)
+    }
+
+    private void Form1_Paint(object sender, PaintEventArgs e)
+    {
+        //when waiting show text screen
+        if (gameState == "waiting")
         {
-            //when waiting show text screen
-            if (gameState == "waiting")
+            titleLabel.Text = "SNAKERUN";
+            subtitleLabel.Text = "Press SPACE to Begin.\nPress ESC to Exit.";
+        }
+
+        //snake chracter and border drawings in all states
+        if (gameState == "runningHard" || gameState == "runningNormal" || gameState == "runningEasy")
+        {
+            e.Graphics.FillRectangle(greenBrush, snakeX, snakeY, snakeWidth, snakeHeight);
+            e.Graphics.DrawRectangle(borderPen, 15, 50, 525, 270);
+
+            //paint walls
+            for (int i = 0; i < wallXList.Count(); i++)
             {
-                titleLabel.Text = "SNAKERUN";
-                subtitleLabel.Text = "Press SPACE to Begin.\nPress ESC to Exit.";
+                e.Graphics.FillRectangle(wallBrush, wallXList[i], wallYList[i], wallWidthList[i], wallHeightList[i]);
             }
-
-            //snake chracter and border drawings in all states
-            if (gameState == "runningHard" || gameState == "runningNormal" || gameState == "runningEasy")
+            //paint red dots
+            for (int i = 0; i < redXList.Count(); i++)
             {
-                e.Graphics.FillRectangle(greenBrush, snakeX, snakeY, snakeWidth, snakeHeight);
-                e.Graphics.DrawRectangle(borderPen, 15, 50, 525, 270);
-
-                //paint walls
-                for (int i = 0; i < wallXList.Count(); i++)
-                {
-                    e.Graphics.FillRectangle(wallBrush, wallXList[i], wallYList[i], wallWidthList[i], wallHeightList[i]);
-                }
-                //paint red dots
-                for (int i = 0; i < redXList.Count(); i++)
-                {
-                    e.Graphics.FillEllipse(redBrush, redXList[i], redYList[i], redDimensionList[i], redDimensionList[i]);
-                }
-                //paint blue dots
-                for (int i = 0; i < blueXList.Count(); i++)
-                {
-                    e.Graphics.FillEllipse(blueBrush, blueXList[i], blueYList[i], blueDimensionList[i], blueDimensionList[i]);
-                }
-                //paint gold dots
-                for (int i = 0; i < goldXList.Count(); i++)
-                {
-                    e.Graphics.FillRectangle(goldBrush, goldXList[i], goldYList[i], goldDimensionList[i], goldDimensionList[i]);
-                }
-                //paint green dots
-                for (int i = 0; i < greenXList.Count(); i++)
-                {
-                    e.Graphics.FillRectangle(greenBrush, greenXList[i], greenYList[i], greenDimensionList[i], greenDimensionList[i]);
-                }
+                e.Graphics.FillEllipse(redBrush, redXList[i], redYList[i], redDimensionList[i], redDimensionList[i]);
             }
-
+            //paint blue dots
+            for (int i = 0; i < blueXList.Count(); i++)
+            {
+                e.Graphics.FillEllipse(blueBrush, blueXList[i], blueYList[i], blueDimensionList[i], blueDimensionList[i]);
+            }
+            //paint gold dots
+            for (int i = 0; i < goldXList.Count(); i++)
+            {
+                e.Graphics.FillRectangle(goldBrush, goldXList[i], goldYList[i], goldDimensionList[i], goldDimensionList[i]);
+            }
+            //paint green dots
+            for (int i = 0; i < greenXList.Count(); i++)
+            {
+                e.Graphics.FillRectangle(greenBrush, greenXList[i], greenYList[i], greenDimensionList[i], greenDimensionList[i]);
+            }
         }
 
     }
+
+}
 }
