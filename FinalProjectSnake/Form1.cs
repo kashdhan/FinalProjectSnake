@@ -183,8 +183,8 @@ namespace FinalProjectSnake
             goldDimensionList.Add(17);
 
             //green obstacle spawn
-            greenXList.Add(45);
-            greenYList.Add(200);
+            greenXList.Add(360);
+            greenYList.Add(170);
             greenDimensionList.Add(14);
         }
 
