@@ -101,7 +101,6 @@ namespace FinalProjectSnake
 
         private void GameEasy()
         {
-            player.Stop();
             GameInitialize();
             lives = 5;
             livesLabel.Text = $"lives: {lives}";
@@ -146,7 +145,6 @@ namespace FinalProjectSnake
         }
         private void GameNormal()
         {
-            player.Stop();
             GameInitialize();
             lives = 3;
             livesLabel.Text = $"lives: {lives}";
@@ -190,7 +188,6 @@ namespace FinalProjectSnake
 
         private void GameHard()
         {
-            player.Stop();
             GameInitialize();
             lives = 1;
             livesLabel.Text = $"lives: {lives}";
